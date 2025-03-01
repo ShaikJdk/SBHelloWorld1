@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="baseDir" value="D:/softwares/log/" />
+	
+	<root level="INFO">
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="FILE"/>
+	</root>
+	
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} %-5p [%t] %c{1}:%L - {%X} - %m%n</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${baseDir}/SBHelloWorld.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${baseDir}/HelloWorld1/SBHW-log.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxFileSize>1MB</maxFileSize>
+			<totalSizeCap>5MB</totalSizeCap>
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} %-5p [%t] %c{1}:%L - {%X} - %m%n</Pattern>
+		</encoder>
+	</appender>
+</configuration>
