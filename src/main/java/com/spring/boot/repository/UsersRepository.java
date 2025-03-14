@@ -7,7 +7,7 @@ import com.spring.boot.dbmodel.Users;
 
 public interface UsersRepository extends JpaRepository<Users, Integer> {
 	
-	public Users findByUsername(String username);
+	public Users findByUsername(String username);		// Query DSL (Domain Specific Language)
 	
 
 }

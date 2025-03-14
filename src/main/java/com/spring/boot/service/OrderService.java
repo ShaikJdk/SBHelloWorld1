@@ -59,4 +59,11 @@ public class OrderService {
 		}
 	}
 
+	public List<com.spring.boot.dbmodel.Order> getOrdersByName(com.spring.boot.pojo.Order order) {
+//		List<com.spring.boot.dbmodel.Order> orders = orderRepository.findByOrderNameOrderByOrderIdDesc(order.getOrderName());
+//		List<com.spring.boot.dbmodel.Order> orders = orderRepository.findByOrderNameContainingOrderByOrderIdDesc(order.getOrderName());
+		List<com.spring.boot.dbmodel.Order> orders = orderRepository.selectquery1(order.getPrice());
+		
+		return orders;
+	}
 }

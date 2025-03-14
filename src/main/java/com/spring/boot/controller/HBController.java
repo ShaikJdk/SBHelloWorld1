@@ -58,6 +58,21 @@ public class HBController {
 		log.info("getOrder - end");
 		return new ResponseEntity<com.spring.boot.dbmodel.Order>(order.get(), HttpStatus.OK);
 	}
+	
+	@PostMapping(value = "/getOrdersBy", headers = "Accept=application/json")
+	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getOrderBySomething(@RequestBody Order order) throws BusinessException{
+
+		log.info("getOrder - Start");
+		List<com.spring.boot.dbmodel.Order> orders = null;
+		try {
+			orders = orderService.getOrdersByName(order);
+		} catch (Exception e) {
+			log.error("getOrder - Exception " + e.getMessage());
+			throw new BusinessException(e.getMessage());
+		}
+		log.info("getOrder - end");
+		return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(orders, HttpStatus.OK);
+	}
 
 	@GetMapping(value = "/getAllOrder", headers = "Accept=application/json")
 	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrder() {
