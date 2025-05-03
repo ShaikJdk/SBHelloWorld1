@@ -1,9 +1,12 @@
 package com.spring.boot.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.boot.config.DataSourceConfig;
 import com.spring.boot.exception.BusinessException;
 import com.spring.boot.pojo.Order;
 import com.spring.boot.service.OrderService;
@@ -24,9 +28,35 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/mysql")
 public class HBController {
+	
+	@Value("Hello")
+	private String localVal;
+	
+	@Value("${key.prop1}")
+	private String propVal;
+	
+	@Value("${key.prop2: Hi}")
+	private String defaltVal;
+	
+	@Value("${key.prop3}")
+	private List<String> list;
 
+	@Value("#{${key.prop4}}")
+	private Map<String,String> map;
+	
+//	@Value("${key.prop5}")
+//	private String profilePropConfigVal;
+	
+	@Value("${key.prop6}")
+	private String springCloudConfigVal;
+	
+	@Autowired
+	private Environment env;
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private DataSourceConfig config;
 
 	@PostMapping(value = "/postOrder", headers = "Accept=application/json")
 	public ResponseEntity<String> postOrder(@RequestBody Order order) throws BusinessException{
@@ -61,7 +91,7 @@ public class HBController {
 	
 	@PostMapping(value = "/getOrdersBy", headers = "Accept=application/json")
 	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getOrderBySomething(@RequestBody Order order) throws BusinessException{
-
+				
 		log.info("getOrder - Start");
 		List<com.spring.boot.dbmodel.Order> orders = null;
 		try {
@@ -77,6 +107,16 @@ public class HBController {
 	@GetMapping(value = "/getAllOrder", headers = "Accept=application/json")
 	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrder() {
 
+		System.out.println(localVal);
+		System.out.println(propVal);
+		System.out.println(defaltVal);
+		System.out.println(list);
+		System.out.println(map);
+		System.out.println(config.getUrl() + " " +config.getUsername() + " " + config.getPassword() );
+		System.err.println(env.toString());		
+//		System.err.println(profilePropConfigVal);
+		System.err.println(springCloudConfigVal);
+		
 		log.info("getAllOrder - Start");
 		List<com.spring.boot.dbmodel.Order> orders = null;
 		try {
@@ -86,6 +126,17 @@ public class HBController {
 			return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(HttpStatus.EXPECTATION_FAILED);
 		}
 		log.info("getAllOrder - end");
+		return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(orders, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getAllOrdersXML", consumes = {"application/xml"}, produces =  {"application/xml"})
+	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrdersXML() {
+		List<com.spring.boot.dbmodel.Order> orders = null;
+		try {
+			orders = orderService.getAllOrders();
+		} catch (Exception e) {
+			return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(HttpStatus.EXPECTATION_FAILED);
+		}
 		return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(orders, HttpStatus.OK);
 	}
 	
