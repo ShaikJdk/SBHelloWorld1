@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
+@SpringBootApplicatio
 @EnableAutoConfiguration(exclude = { DataSourceTransactionManagerAutoConfiguration.class,
 		HibernateJpaAutoConfiguration.class, DataSourceAutoConfiguration.class })
 @EnableAsync
