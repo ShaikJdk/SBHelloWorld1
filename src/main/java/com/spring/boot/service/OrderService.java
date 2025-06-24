@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,11 @@ public class OrderService {
 	public List<com.spring.boot.dbmodel.Order> getAllOrders() {
 		List<com.spring.boot.dbmodel.Order> orders = orderRepository.findAll();
 		return orders;
+	}
+	
+	public CompletableFuture<List<com.spring.boot.dbmodel.Order>> getAllOrders_using_CompletableFuture() {
+		List<com.spring.boot.dbmodel.Order> orders = orderRepository.findAll();
+		return CompletableFuture.completedFuture(orders);
 	}
 
 	public Optional<com.spring.boot.dbmodel.Order> getOrderById(int id) throws BusinessException {

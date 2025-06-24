@@ -1,8 +1,11 @@
 package com.spring.boot.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -153,5 +156,40 @@ public class HBController {
 		log.info("deleteOrder - end");
 		return new ResponseEntity<Void>(HttpStatus.OK)
 				.ofNullable("Order is deleted Successfully .... Your Order  Id : " + orderId);
+	}
+	
+	@GetMapping(value = "/getAllOrderCompletableFuture", headers = "Accept=application/json", produces =  {"application/json"})
+	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrderCompletableFuture() throws InterruptedException, ExecutionException {
+
+		CompletableFuture<List<com.spring.boot.dbmodel.Order>> orders = null;
+		try {
+			System.out.println("Main :: " + Thread.currentThread().getName());
+			orders = orderService.getAllOrders_using_CompletableFuture();
+		} catch (Exception e) {
+			log.error("getAllOrder - Exception " + e.getMessage());
+			return orders.thenApply(s -> new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(HttpStatus.EXPECTATION_FAILED)).get();
+		}
+		return orders.thenApply(s -> new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(s, HttpStatus.OK)).get();
+	}
+	
+	@GetMapping(value = "/getAllOrderCompletableFutureByMultiThread", headers = "Accept=application/json", produces =  {"application/json"})
+	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrderCompletableFutureByMultiThread() {
+
+		CompletableFuture<List<com.spring.boot.dbmodel.Order>> orders1,orders2, orders3  = null;
+		List<com.spring.boot.dbmodel.Order> finalResult = new ArrayList<>();;
+		try {
+			System.out.println("Main :: " + Thread.currentThread().getName());
+			orders1 = orderService.getAllOrders_using_CompletableFuture();
+			orders2 = orderService.getAllOrders_using_CompletableFuture();
+			orders3 = orderService.getAllOrders_using_CompletableFuture();
+			CompletableFuture.allOf(orders1, orders2, orders3).join();
+			finalResult.addAll(orders1.get());
+			finalResult.addAll(orders2.get());
+			finalResult.addAll(orders3.get());
+		} catch (Exception e) {
+			log.error("getAllOrder - Exception " + e.getMessage());
+			return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(HttpStatus.EXPECTATION_FAILED);
+		}
+		return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(finalResult , HttpStatus.OK);
 	}
 }
