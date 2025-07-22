@@ -1,4 +1,4 @@
-package com.spring.boot.service;
+package com.spring.boot.service.mysql.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -6,7 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.spring.boot.dbmodel.Users;
+import com.spring.boot.dbmodel.mysql.Users;
 
 @Service
 public class UserAuthenticateService {

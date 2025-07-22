@@ -15,10 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.boot.dbmodel.Journaling;
+import com.spring.boot.dbmodel.mysql.Journaling;
 import com.spring.boot.exception.BusinessException;
-import com.spring.boot.repository.JournalingRepository;
-import com.spring.boot.repository.OrderRepository;
+import com.spring.boot.repository.mysql.JournalingRepository;
+import com.spring.boot.repository.mysql.OrderRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,7 +47,7 @@ public class HBJournlingAdvice {
 		
 		Object proceed = joinPoint.proceed();
 
-		com.spring.boot.dbmodel.Order orderAfter = orderRepository.findByOrderId((Integer) orderBefore.getOrderId());
+		com.spring.boot.dbmodel.mysql.OrdersM orderAfter = orderRepository.findByOrderId((Integer) orderBefore.getOrderId());
 		Journaling journalingAfter = new Journaling(UUID.randomUUID().toString(),
 				mapper.writeValueAsString(orderAfter));
 		journalingRepository.save(journalingAfter);
@@ -77,7 +77,7 @@ public class HBJournlingAdvice {
 	}
 	
 	@AfterReturning(pointcut = "execution(* com.spring.boot.controller.HBController.getAllOrder(..))", returning="response")
-	public void journaGetAllOrder(JoinPoint joinPoint, ResponseEntity<List<com.spring.boot.dbmodel.Order>> response) throws Throwable {
+	public void journaGetAllOrder(JoinPoint joinPoint, ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>> response) throws Throwable {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		

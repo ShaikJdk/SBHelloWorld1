@@ -1,4 +1,4 @@
-package com.spring.boot.dbmodel;
+package com.spring.boot.dbmodel.mysql;
 
 import java.sql.Date;
 
@@ -13,11 +13,11 @@ import lombok.Data;
 @Builder
 @Entity
 @Table(name = "ORDER_PROD")
-public class Order {
+public class OrdersM {
 
-	public Order() {
+	public OrdersM() {
 	}
-	public Order(int orderId, String orderName, String orderStatus, double price, Date delivaryDate,
+	public OrdersM(int orderId, String orderName, String orderStatus, double price, Date delivaryDate,
 			String trackingId) {
 		super();
 		this.orderId = orderId;

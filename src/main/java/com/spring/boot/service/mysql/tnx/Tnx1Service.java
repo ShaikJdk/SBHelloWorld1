@@ -1,4 +1,4 @@
-package com.spring.boot.service;
+package com.spring.boot.service.mysql.tnx;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.boot.exception.BusinessException;
 import com.spring.boot.pojo.Tnx;
-import com.spring.boot.repository.Tnx1Repository;
+import com.spring.boot.repository.mysql.Tnx1Repository;
 
 @Service
 public class Tnx1Service {

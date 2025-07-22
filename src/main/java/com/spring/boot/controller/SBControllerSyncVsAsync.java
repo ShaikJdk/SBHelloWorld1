@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.boot.exception.BusinessException;
 import com.spring.boot.pojo.Order;
-import com.spring.boot.service.AsyncService;
-import com.spring.boot.service.SyncService;
+import com.spring.boot.service.mysql.async.AsyncService;
+import com.spring.boot.service.mysql.async.SyncService;
 
 @RestController
 public class SBControllerSyncVsAsync {

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.boot.exception.BusinessException;
 import com.spring.boot.pojo.Tnx;
-import com.spring.boot.service.Tnx1Service;
+import com.spring.boot.service.mysql.tnx.Tnx1Service;
 
 import lombok.extern.slf4j.Slf4j;
 

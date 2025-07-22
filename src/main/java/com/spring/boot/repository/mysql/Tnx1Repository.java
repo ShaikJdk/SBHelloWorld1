@@ -1,11 +1,11 @@
-package com.spring.boot.repository;
+package com.spring.boot.repository.mysql;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.spring.boot.dbmodel.Tnx1;
+import com.spring.boot.dbmodel.mysql.Tnx1;
 
 
 public interface  Tnx1Repository extends JpaRepository<Tnx1, Integer> {

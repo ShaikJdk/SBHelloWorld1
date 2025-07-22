@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.boot.config.DataSourceConfig;
+import com.spring.boot.config.MySqlDataSourceConfig;
 import com.spring.boot.exception.BusinessException;
 import com.spring.boot.pojo.Order;
-import com.spring.boot.service.OrderService;
+import com.spring.boot.service.mysql.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,7 +59,7 @@ public class HBController {
 	private OrderService orderService;
 	
 	@Autowired
-	private DataSourceConfig config;
+	private MySqlDataSourceConfig config;
 
 	@PostMapping(value = "/postOrder", headers = "Accept=application/json")
 	public ResponseEntity<String> postOrder(@RequestBody Order order) throws BusinessException{
@@ -78,10 +78,10 @@ public class HBController {
 	}
 	
 	@GetMapping(value = "/getOrder/{orderId}", headers = "Accept=application/json")
-	public ResponseEntity<com.spring.boot.dbmodel.Order> getOrder(@PathVariable int orderId) throws BusinessException{
+	public ResponseEntity<com.spring.boot.dbmodel.mysql.OrdersM> getOrder(@PathVariable int orderId) throws BusinessException{
 
 		log.info("getOrder - Start");
-		Optional<com.spring.boot.dbmodel.Order> order = null;
+		Optional<com.spring.boot.dbmodel.mysql.OrdersM> order = null;
 		try {
 			order = orderService.getOrderById(orderId);
 		} catch (Exception e) {
@@ -89,14 +89,14 @@ public class HBController {
 			throw new BusinessException(e.getMessage());
 		}
 		log.info("getOrder - end");
-		return new ResponseEntity<com.spring.boot.dbmodel.Order>(order.get(), HttpStatus.OK);
+		return new ResponseEntity<com.spring.boot.dbmodel.mysql.OrdersM>(order.get(), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/getOrdersBy", headers = "Accept=application/json")
-	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getOrderBySomething(@RequestBody Order order) throws BusinessException{
+	public ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>> getOrderBySomething(@RequestBody Order order) throws BusinessException{
 				
 		log.info("getOrder - Start");
-		List<com.spring.boot.dbmodel.Order> orders = null;
+		List<com.spring.boot.dbmodel.mysql.OrdersM> orders = null;
 		try {
 			orders = orderService.getOrdersByName(order);
 		} catch (Exception e) {
@@ -104,11 +104,11 @@ public class HBController {
 			throw new BusinessException(e.getMessage());
 		}
 		log.info("getOrder - end");
-		return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(orders, HttpStatus.OK);
+		return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(orders, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getAllOrder", headers = "Accept=application/json")
-	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrder() {
+	public ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>> getAllOrder() {
 
 		System.out.println(localVal);
 		System.out.println(propVal);
@@ -121,26 +121,39 @@ public class HBController {
 		System.err.println(springCloudConfigVal);
 		
 		log.info("getAllOrder - Start");
-		List<com.spring.boot.dbmodel.Order> orders = null;
+		List<com.spring.boot.dbmodel.mysql.OrdersM> orders = null;
 		try {
 			orders = orderService.getAllOrders();
 		} catch (Exception e) {
 			log.error("getAllOrder - Exception " + e.getMessage());
-			return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(HttpStatus.EXPECTATION_FAILED);
+			return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(HttpStatus.EXPECTATION_FAILED);
 		}
 		log.info("getAllOrder - end");
-		return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(orders, HttpStatus.OK);
+		return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(orders, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getSpecificOrders/{specificOrderName}", headers = "Accept=application/json")
+	public ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>> getSpecificOrders(
+			@PathVariable("specificOrderName") String specificOrderName){
+		List<com.spring.boot.dbmodel.mysql.OrdersM> orders = null;
+		try {
+			orders = orderService.getSpecificOrders(specificOrderName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(HttpStatus.EXPECTATION_FAILED);
+		}
+		return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(orders, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/getAllOrdersXML", consumes = {"application/xml"}, produces =  {"application/xml"})
-	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrdersXML() {
-		List<com.spring.boot.dbmodel.Order> orders = null;
+	public ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>> getAllOrdersXML() {
+		List<com.spring.boot.dbmodel.mysql.OrdersM> orders = null;
 		try {
 			orders = orderService.getAllOrders();
 		} catch (Exception e) {
-			return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(HttpStatus.EXPECTATION_FAILED);
+			return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(HttpStatus.EXPECTATION_FAILED);
 		}
-		return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(orders, HttpStatus.OK);
+		return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(orders, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/deleteOrder", headers = "Accept=application/json")
@@ -159,24 +172,24 @@ public class HBController {
 	}
 	
 	@GetMapping(value = "/getAllOrderCompletableFuture", headers = "Accept=application/json", produces =  {"application/json"})
-	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrderCompletableFuture() throws InterruptedException, ExecutionException {
+	public ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>> getAllOrderCompletableFuture() throws InterruptedException, ExecutionException {
 
-		CompletableFuture<List<com.spring.boot.dbmodel.Order>> orders = null;
+		CompletableFuture<List<com.spring.boot.dbmodel.mysql.OrdersM>> orders = null;
 		try {
 			System.out.println("Main :: " + Thread.currentThread().getName());
 			orders = orderService.getAllOrders_using_CompletableFuture();
 		} catch (Exception e) {
 			log.error("getAllOrder - Exception " + e.getMessage());
-			return orders.thenApply(s -> new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(HttpStatus.EXPECTATION_FAILED)).get();
+			return orders.thenApply(s -> new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(HttpStatus.EXPECTATION_FAILED)).get();
 		}
-		return orders.thenApply(s -> new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(s, HttpStatus.OK)).get();
+		return orders.thenApply(s -> new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(s, HttpStatus.OK)).get();
 	}
 	
 	@GetMapping(value = "/getAllOrderCompletableFutureByMultiThread", headers = "Accept=application/json", produces =  {"application/json"})
-	public ResponseEntity<List<com.spring.boot.dbmodel.Order>> getAllOrderCompletableFutureByMultiThread() {
+	public ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>> getAllOrderCompletableFutureByMultiThread() {
 
-		CompletableFuture<List<com.spring.boot.dbmodel.Order>> orders1,orders2, orders3  = null;
-		List<com.spring.boot.dbmodel.Order> finalResult = new ArrayList<>();;
+		CompletableFuture<List<com.spring.boot.dbmodel.mysql.OrdersM>> orders1,orders2, orders3  = null;
+		List<com.spring.boot.dbmodel.mysql.OrdersM> finalResult = new ArrayList<>();;
 		try {
 			System.out.println("Main :: " + Thread.currentThread().getName());
 			orders1 = orderService.getAllOrders_using_CompletableFuture();
@@ -188,8 +201,8 @@ public class HBController {
 			finalResult.addAll(orders3.get());
 		} catch (Exception e) {
 			log.error("getAllOrder - Exception " + e.getMessage());
-			return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(HttpStatus.EXPECTATION_FAILED);
+			return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(HttpStatus.EXPECTATION_FAILED);
 		}
-		return new ResponseEntity<List<com.spring.boot.dbmodel.Order>>(finalResult , HttpStatus.OK);
+		return new ResponseEntity<List<com.spring.boot.dbmodel.mysql.OrdersM>>(finalResult , HttpStatus.OK);
 	}
 }

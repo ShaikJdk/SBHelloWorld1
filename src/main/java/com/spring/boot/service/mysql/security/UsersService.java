@@ -1,4 +1,4 @@
-package com.spring.boot.service;
+package com.spring.boot.service.mysql.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.spring.boot.dbmodel.Users;
+import com.spring.boot.dbmodel.mysql.Users;
 import com.spring.boot.pojo.SBUsersDetails;
-import com.spring.boot.repository.UsersRepository;
+import com.spring.boot.repository.mysql.UsersRepository;
 
 @Service
 public class UsersService implements UserDetailsService {

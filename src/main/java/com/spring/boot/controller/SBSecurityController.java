@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.boot.dbmodel.Users;
-import com.spring.boot.service.UserAuthenticateService;
-import com.spring.boot.service.UsersService;
+import com.spring.boot.dbmodel.mysql.Users;
+import com.spring.boot.service.mysql.security.UserAuthenticateService;
+import com.spring.boot.service.mysql.security.UsersService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;

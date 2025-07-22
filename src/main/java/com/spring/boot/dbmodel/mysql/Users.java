@@ -1,4 +1,4 @@
-package com.spring.boot.dbmodel;
+package com.spring.boot.dbmodel.mysql;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

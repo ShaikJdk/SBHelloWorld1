@@ -30,7 +30,8 @@ public class SBSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.csrf(csrfConfiger -> csrfConfiger.disable())
-				.authorizeHttpRequests(customizer -> customizer.requestMatchers("/login", "/registerUser").permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(customizer -> customizer.requestMatchers("/login", "/registerUser").permitAll()
+				.anyRequest().authenticated())
 				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

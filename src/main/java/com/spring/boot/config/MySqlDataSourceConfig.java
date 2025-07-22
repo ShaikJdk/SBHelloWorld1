@@ -12,28 +12,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Configuration
-@ConfigurationProperties("spring.datasource")
+@ConfigurationProperties("spring.datasource.mysql")
 @Getter
 @Setter
-public class DataSourceConfig {
+public class MySqlDataSourceConfig {
 
-	@Value("${spring.datasource.driver-class-name}")
+	@Value("${spring.datasource.mysql.driver-class-name}")
 	private String MySQL_DRIVER;
 	
-	@Value("${spring.datasource.url}")
+	@Value("${spring.datasource.mysql.url}")
 	private String MySQL_URL;
 	
-	@Value("${spring.datasource.username}")
+	@Value("${spring.datasource.mysql.username}")
 	private String MySQL_USERNAME;
 	
-	@Value("${spring.datasource.password}")
+	@Value("${spring.datasource.mysql.password}")
 	private String MySQL_PASSWORD;
 	
 	private String url;
 	private String username;
 	private String password;
 			
-	@Bean
+	@Bean(name="dataSourceMySQL")
 	public DataSource dataSourceMySQL() {
 	DriverManagerDataSource dataSource = new DriverManagerDataSource();
 	dataSource.setDriverClassName(MySQL_DRIVER);

@@ -10,8 +10,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.spring.boot.service.JWTService;
-import com.spring.boot.service.UsersService;
+import com.spring.boot.service.mysql.security.JWTService;
+import com.spring.boot.service.mysql.security.UsersService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

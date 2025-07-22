@@ -1,11 +1,11 @@
-package com.spring.boot.repository;
+package com.spring.boot.repository.mysql;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.boot.dbmodel.Journaling;
+import com.spring.boot.dbmodel.mysql.Journaling;
 
 
 

@@ -1,4 +1,4 @@
-package com.spring.boot.service;
+package com.spring.boot.service.mysql.security;
 
 import java.security.Key;
 import java.util.Base64;
@@ -13,7 +13,7 @@ import javax.crypto.SecretKey;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.spring.boot.dbmodel.Users;
+import com.spring.boot.dbmodel.mysql.Users;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
