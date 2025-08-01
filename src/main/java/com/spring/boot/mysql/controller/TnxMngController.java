@@ -1,4 +1,4 @@
-package com.spring.boot.controller;
+package com.spring.boot.mysql.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

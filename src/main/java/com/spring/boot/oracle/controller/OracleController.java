@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.boot.dbmodel.oracle.OrdersO;
+import com.spring.boot.dbmodel.oracle.relationship.EmployeeO;
 import com.spring.boot.pojo.PurchaseDetails;
 import com.spring.boot.service.oracle.DeptServiceO;
+import com.spring.boot.service.oracle.EmployeeServiceO;
 import com.spring.boot.service.oracle.OrderServiceO;
 import com.spring.boot.service.oracle.PurchaseServiceO;
 
@@ -34,6 +36,9 @@ public class OracleController {
 	
 	@Autowired
 	private PurchaseServiceO purchaseServiceO;
+	
+	@Autowired
+	private EmployeeServiceO employeeServiceO; 
 	
 	@GetMapping(value = "/getAllOrdersO", headers = "Accept=application/json")
 	public ResponseEntity<List<com.spring.boot.dbmodel.oracle.OrdersO>> getAllOrder() {

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.spring.boot.dbmodel.oracle.DeptO;
 
-public interface  DeptRepositoryO extends JpaRepository<DeptO, Integer> {
+public interface  DeptRepositoryO extends JpaRepository<DeptO, String> {
 	List<DeptO> findAll();
 }

@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @SpringBootApplication(scanBasePackages = "com.spring.boot")
@@ -18,6 +19,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 		HibernateJpaAutoConfiguration.class, DataSourceAutoConfiguration.class })
 @EnableAsync
 @EnableCaching
+@EnableScheduling
 public class SbHelloWorld1Application {
 
 	public static void main(String[] args) {

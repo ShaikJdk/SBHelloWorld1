@@ -1,4 +1,4 @@
-package com.spring.boot.controller;
+package com.spring.boot.mysql.controller;
 
 import java.util.ArrayList;
 import java.util.List;
