@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Company Management API
+  version: 1.0.0
+  description: API to manage Compay creation
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /oracle/company/create:
+    post:
+      summary: Create new company
+      description: Pass company details and X-API-KEY in header
+      operationId: createCompany
+      parameters:
+        - name: X-API-KEY
+          in: header
+          required: true
+          description: API key
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyRequestO'
+            examples:
+              companyExample:
+                value:
+                  name: SSS Info Tech
+                  since: 30
+                  ctype: Software Engineering
+                  address:
+                    city: Hyderabad
+                    state: TN
+                    zip: "400001"
+      responses:
+        '200':
+          description: Created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyResponseO'
+components:
+  schemas:
+    CompanyRequestO:
+      type: object
+      required: [name, since, ctype, address]
+      properties:
+        name:
+          type: string
+          maxLenght : 30
+        since:
+          type: integer
+          minimum: 18
+        ctype:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressO'
+    AddressO:
+      type: object
+      required: [city, state, zip]
+      properties:
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+    CompanyResponseO:
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string

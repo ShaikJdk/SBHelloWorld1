@@ -14,19 +14,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.boot.dbmodel.oracle.OrdersO;
-import com.spring.boot.dbmodel.oracle.relationship.EmployeeO;
+import com.spring.boot.dbmodel.oracle.VersionO;
 import com.spring.boot.pojo.PurchaseDetails;
 import com.spring.boot.service.oracle.DeptServiceO;
 import com.spring.boot.service.oracle.EmployeeServiceO;
 import com.spring.boot.service.oracle.OrderServiceO;
 import com.spring.boot.service.oracle.PurchaseServiceO;
+import com.spring.boot.service.oracle.VersionServiceO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 @RequestMapping("/oracle")
-public class OracleController {
+public class OracleControllerO {
 	
 	@Autowired
 	private OrderServiceO orderServiceO;
@@ -38,7 +39,10 @@ public class OracleController {
 	private PurchaseServiceO purchaseServiceO;
 	
 	@Autowired
-	private EmployeeServiceO employeeServiceO; 
+	private EmployeeServiceO employeeServiceO;
+	
+	@Autowired
+	private VersionServiceO versionServiceO; 
 	
 	@GetMapping(value = "/getAllOrdersO", headers = "Accept=application/json")
 	public ResponseEntity<List<com.spring.boot.dbmodel.oracle.OrdersO>> getAllOrder() {
@@ -125,6 +129,32 @@ public class OracleController {
 			return new ResponseEntity<com.spring.boot.dbmodel.oracle.PurchaseDetails>(HttpStatus.EXPECTATION_FAILED);
 		}
 		return new ResponseEntity<com.spring.boot.dbmodel.oracle.PurchaseDetails>(purchaseDetails, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/putVersion", headers = "Accept=application/json")
+	public ResponseEntity<VersionO> putVersion(
+			@RequestBody VersionO req){
+		VersionO v = null;
+		try {
+			v = versionServiceO.putVersion(req);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<VersionO>(HttpStatus.EXPECTATION_FAILED);
+		}
+		return new ResponseEntity<VersionO>(v, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/updateVersion")
+	public ResponseEntity<VersionO> updateVersion(
+			@RequestParam String vid, @RequestParam String vname){
+		VersionO v = null;
+		try {
+			v =versionServiceO.updateVersion(vid, vname);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<VersionO>(HttpStatus.EXPECTATION_FAILED);
+		}
+		return new ResponseEntity<VersionO>(v, HttpStatus.OK);
 	}
 	
 }

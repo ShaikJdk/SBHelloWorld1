@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/oracle")
-public class OracleRelationshipController {
+public class OracleRelationshipControllerO {
 	
 	@Autowired
 	private EmployeeServiceO employeeServiceO; 
