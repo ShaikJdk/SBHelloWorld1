@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orders</title>
+</head>
+<body>
+<h1>Order List</h1>
+<table border="1">
+    <tr>
+        <th>Order ID</th><th>Name</th><th>Price</th>
+    </tr>
+    <tr th:each="o : ${orders}">
+        <td th:text="${o.orderId}"></td>
+        <td th:text="${o.orderName}"></td>
+        <td th:text="${o.price}"></td>
+    </tr>
+</table>
+<a th:href="@{/mysql/index}">Back Home</a>
+</body>
+</html>

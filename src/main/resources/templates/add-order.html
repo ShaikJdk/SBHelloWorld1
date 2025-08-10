@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Order</title>
+</head>
+<body>
+<h1>Add Order</h1>
+<form th:action="@{/mysql/addOrder}" th:object="${order}" method="post">
+    <label>Order Id:</label><input type="text" th:field="*{orderId}"><br>
+    <label>Order Name:</label><input type="text" th:field="*{orderName}"><br>
+     <label>Order Status:</label><input type="text" th:field="*{orderStatus}"><br>
+    <label>Order Delivary Date:</label><input type="text" th:field="*{delivaryDate}"><br>
+    <label>Order Price:</label><input type="text" th:field="*{price}"><br>
+    <button type="submit">Save</button>
+</form>
+<a th:href="@{/mysql/index}">Back Home</a>
+</body>
+</html>

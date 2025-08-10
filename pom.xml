@@ -40,6 +40,13 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
@@ -130,7 +137,7 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
-		
+
 		<!--		 spring cache -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -141,8 +148,8 @@
 			<artifactId>ehcache</artifactId>
 		</dependency>
 		<!-- cache end -->
-	    
-	   <!-- jaxb start -->
+
+		<!-- jaxb start -->
 		<dependency>
 		    <groupId>javax.xml.bind</groupId>
 		    <artifactId>jaxb-api</artifactId>
@@ -173,8 +180,8 @@
 		    <artifactId>ojdbc8</artifactId>
 		    <version>21.9.0.0</version>
 		</dependency>
-		
-		 <!-- Validation -->
+
+		<!-- Validation -->
   <dependency>
     <groupId>jakarta.validation</groupId>
     <artifactId>jakarta.validation-api</artifactId>
@@ -184,14 +191,42 @@
     <artifactId>spring-boot-starter-validation</artifactId>
   </dependency>
 
-  <!-- Swagger / OpenAPI -->
-  <dependency>
-    <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    <version>2.5.0</version>
-  </dependency>
+		<!-- Swagger / OpenAPI -->
+	  <dependency>
+	    <groupId>org.springdoc</groupId>
+	    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+	    <version>2.5.0</version>
+	  </dependency>
   
-	</dependencies>
+  
+    <!-- MVC Start -->
+	  <!-- Thymeleaf is spring provided mvc-->		
+<!--	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	    </dependency>-->
+    
+    <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+
+        <!-- JSTL for JSP -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+        </dependency>
+        <!-- MVC End -->
+   </dependencies>
 	 <dependencyManagement>
         <dependencies>
             <dependency>
