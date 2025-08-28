@@ -51,6 +51,7 @@ public class OracleControllerO {
 		List<com.spring.boot.dbmodel.oracle.OrdersO> orders = null;
 		try {
 			orders = orderServiceO.getAllOrders();
+			System.out.println(orders);
 		} catch (Exception e) {
 			log.error("getAllOrder - Exception " + e.getMessage());
 			return new ResponseEntity<List<com.spring.boot.dbmodel.oracle.OrdersO>>(HttpStatus.EXPECTATION_FAILED);

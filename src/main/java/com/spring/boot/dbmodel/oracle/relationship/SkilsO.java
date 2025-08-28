@@ -51,8 +51,8 @@ public class SkilsO implements Serializable{
 	private double skilExp;
 	
 	@ManyToMany(fetch= FetchType.LAZY, mappedBy = "skils")
-	@JsonBackReference
-	@JsonIgnore
+//	@JsonBackReference
+	@JsonIgnore   
 	List<EmployeeO> empList;
 
 	@Override

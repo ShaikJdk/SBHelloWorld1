@@ -55,7 +55,6 @@ public class PersonalDetailsO implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "EMP_ID")
 	@JsonBackReference
-	@JsonIgnore
 	private EmployeeO employee;
 
 	@Override

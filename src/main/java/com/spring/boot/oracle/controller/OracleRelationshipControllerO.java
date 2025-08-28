@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +39,8 @@ public class OracleRelationshipControllerO {
 		return new ResponseEntity<EmployeeO>(empRes, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/getEmployeeO", headers = "Accept=application/json")
+	@GetMapping(value = "/getEmployeeO", 
+	        produces = MediaType.APPLICATION_JSON_VALUE  )
 	public ResponseEntity<EmployeeO> getEmployeeO(
 			@RequestParam Integer empId){
 		EmployeeO empRes = null;

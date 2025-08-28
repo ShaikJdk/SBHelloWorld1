@@ -60,7 +60,6 @@ public class EmploymentO implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="EMP_ID")
 	@JsonBackReference
-	@JsonIgnore
 	private EmployeeO employee;
 
 	@Override

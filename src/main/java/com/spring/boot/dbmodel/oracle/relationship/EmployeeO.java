@@ -85,7 +85,7 @@ public class EmployeeO implements Serializable{
 	private Set<EmploymentO> employment;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference
+//	@JsonManagedReference
 	@JoinTable(name="EMPLOYEE_SKILS",
 							joinColumns = {@JoinColumn(name="EID")},
 							inverseJoinColumns = {@JoinColumn(name="SKIL_ID")})

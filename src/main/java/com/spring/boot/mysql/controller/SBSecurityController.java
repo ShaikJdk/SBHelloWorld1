@@ -1,5 +1,7 @@
 package com.spring.boot.mysql.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +41,8 @@ public class SBSecurityController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody Users user) {
+	public ResponseEntity<Map<String, String>> login(@RequestBody Users user) {
 		String savedUser = userAuthenticateService.verifyUser(user);
-		return new ResponseEntity<String>(savedUser, HttpStatus.OK); 
+		return ResponseEntity.ok(Map.of("token", savedUser));
 	}
 }
